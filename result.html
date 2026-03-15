@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Prediction Result - Student Dropout Prediction</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="result-bg {% if 'Dropout' not in prediction %}theme-celebrate{% endif %}">
+
+<!-- Confetti Canvas (positive result only) -->
+{% if "Dropout" not in prediction %}
+<canvas id="confetti-canvas"></canvas>
+{% endif %}
+
+<div class="container result-page glass-card animate-card">
+
+    <div class="result-icon">
+        {% if "Dropout" in prediction %}
+        <span class="icon-circle normal-circle">
+            <span class="icon-text">⚠️</span>
+        </span>
+        {% else %}
+        <span class="icon-circle success-circle">
+            <span class="icon-text">🎉</span>
+        </span>
+        {% endif %}
+    </div>
+
+    {% if "Dropout" in prediction %}
+    <h1>📊 Prediction Result</h1>
+    {% else %}
+    <h1>🎊 Congratulations!</h1>
+    <p class="subtitle">This student is on the right track</p>
+    {% endif %}
+
+    <div class="result-card {% if 'Dropout' in prediction %}result-normal{% else %}result-success{% endif %}">
+        <h2>{{ prediction }}</h2>
+        <div class="prob-bar-container">
+            <div class="prob-bar {% if 'Dropout' in prediction %}bar-normal{% else %}bar-success{% endif %}" style="width: {{ prob }}%"></div>
+        </div>
+        <h3>Dropout Probability: {{ prob }}%</h3>
+    </div>
+
+    {% if "Dropout" not in prediction %}
+    <div class="celebrate-box">
+        <h4>🌟 Keep Up the Great Work!</h4>
+        <p>The student shows strong indicators of academic persistence and success.</p>
+    </div>
+    {% endif %}
+
+    <a href="/" class="back-btn {% if 'Dropout' not in prediction %}btn-success{% endif %}">← Make Another Prediction</a>
+
+</div>
+
+{% if "Dropout" not in prediction %}
+<script>
+// Confetti Animation
+const canvas = document.getElementById('confetti-canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const colors = ['#ff6b6b','#feca57','#48dbfb','#ff9ff3','#54a0ff','#5f27cd','#01a3a4','#f368e0','#ff9f43','#00d2d3'];
+const confetti = [];
+
+for (let i = 0; i < 150; i++) {
+    confetti.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        w: Math.random() * 12 + 5,
+        h: Math.random() * 6 + 3,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        speed: Math.random() * 3 + 2,
+        angle: Math.random() * Math.PI * 2,
+        spin: (Math.random() - 0.5) * 0.1,
+        drift: (Math.random() - 0.5) * 1.5,
+        opacity: Math.random() * 0.5 + 0.5
+    });
+}
+
+function drawConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confetti.forEach(c => {
+        ctx.save();
+        ctx.globalAlpha = c.opacity;
+        ctx.translate(c.x + c.w/2, c.y + c.h/2);
+        ctx.rotate(c.angle);
+        ctx.fillStyle = c.color;
+        ctx.fillRect(-c.w/2, -c.h/2, c.w, c.h);
+        ctx.restore();
+
+        c.y += c.speed;
+        c.x += c.drift;
+        c.angle += c.spin;
+
+        if (c.y > canvas.height) {
+            c.y = -20;
+            c.x = Math.random() * canvas.width;
+        }
+    });
+    requestAnimationFrame(drawConfetti);
+}
+drawConfetti();
+
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+</script>
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Dropout Prediction</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="index-bg">
+
+<div class="container glass-card">
+
+<h1>📉Student Dropout Prediction</h1>
+
+<form action="/predict" method="post">
+
+<label for="age">Age</label>
+<input type="number" name="age" id="age" placeholder="Enter age" required>
+
+<label for="gender">Gender</label>
+<select name="gender" id="gender">
+<option value="">Select</option>
+<option>Male</option>
+<option>Female</option>
+</select>
+
+<label for="admission_grade">Admission Grade</label>
+<input type="number" name="admission_grade" id="admission_grade" placeholder="Enter admission grade" required>
+
+<label for="attendance">Attendance %</label>
+<input type="number" name="attendance" id="attendance" placeholder="Enter attendance percentage" required>
+
+<label for="study_hours">Study Hours Per Day</label>
+<input type="number" name="study_hours" id="study_hours" placeholder="Enter study hours" required>
+
+<label for="scholarship">Scholarship</label>
+<select name="scholarship" id="scholarship">
+<option value="">Select</option>
+<option>Yes</option>
+<option>No</option>
+</select>
+
+<label for="tuition">Tuition Fees Paid</label>
+<select name="tuition" id="tuition">
+<option value="">Select</option>
+<option>Yes</option>
+<option>No</option>
+</select>
+
+<label for="parents">Parents Education</label>
+<select name="parents" id="parents">
+<option>HighSchool</option>
+<option>Bachelor</option>
+<option>Diploma</option>
+<option>Master</option>
+</select>
+
+<label for="income">Family Income</label>
+<input type="number" name="income" id="income" placeholder="Enter family income" required>
+
+<label for="exam_score">Exam Score</label>
+<input type="number" name="exam_score" id="exam_score" placeholder="Enter exam score" required>
+
+<button type="submit">Predict</button>
+
+</form>
+
+</div>
+
+</body>
+</html>
