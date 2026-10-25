@@ -1,7 +1,5 @@
-flask
+
+streamlit
 numpy
 pandas
-scikit-learn
-gunicorn
-matplotlib
-seaborn
+scikit-learn==1.9.1
